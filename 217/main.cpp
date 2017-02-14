@@ -3,7 +3,7 @@
  * program to test every single method, all boundary cases, everything you can
  * think of.
  * @author Jon Beck
- * @version 20 January 2017
+ * @version 13 February 2017
  */
 
 typedef unsigned int uint;
@@ -23,11 +23,25 @@ int main()
     uint_list.push_front( 5 );
     uint_list.push_front( 4 );
     uint_list.push_front( 2 );
+    cout << "a list copied onto itself should be ok: ";
 
-    cout << uint_list.to_string() << endl;
-    cout << endl << endl;
+    cout << uint_list.to_string() << endl << endl;
+    cout << "a list copied onto itself should be ok: ";
+    uint_list = uint_list;
+    cout << uint_list.to_string() << endl << endl;
 
     cout << "The end element is: " << uint_list.tail() << endl;
+
+    if( !uint_list.is_empty() > 0 )
+    {
+        List< uint > ul2;
+        ul2.push_front( 10 );
+        ul2.push_front( 20 );
+        uint_list = ul2;
+    }
+
+    cout << "after copied list goes out of scope: " <<
+         uint_list.to_string() << endl;
 
     List< string > string_list;
 
@@ -57,6 +71,17 @@ int main()
     cout << "a second copy of the copy appears as: " << endl;
     cout << second_copy.to_string() << endl;
     cout << endl;
+
+    cout << "about to make an empty list" << endl;
+    List<int> empty;
+    cout << "an empty list is empty? ";
+    cout <<  (empty.is_empty() ? "true" : "false") << endl;
+    List<int> empty2{empty};
+    cout << "a copied empty list: " << empty2.to_string() << endl;
+
+    empty2.push_front( -100 );
+
+    cout << empty2.to_string() << endl;
 
     return 0;
 }
