@@ -1,0 +1,101 @@
+starting to create l1 and l2
+starting to copy-construct l3 from l1
+starting to operator= l1 onto l2
+0
+1making new nodes
+2making new nodes
+3making new nodes
+4making new nodes
+5making new nodes
+6making new nodes
+7making new nodes
+8making new nodes
+9making new nodes
+10making new nodes
+11making new nodes
+12making new nodes
+13making new nodes
+14making new nodes
+15making new nodes
+16making new nodes
+17making new nodes
+18making new nodes
+19making new nodes
+20making new nodes
+21making new nodes
+513354341 1695337668 258787037 2016379250 291961259 1472332053 624125092 1873976723 1685470885 48083427 1883308052 1761243733 1803197663 1353397777 381796135 400390805 1205569694 1002156623 1286070745 1196953698 554500486 1996912381 
+513354341 2140275198 1695337668 258787037 2016379250 291961259 1472332053 624125092 1873976723 1685470885 48083427 1883308052 1761243733 1803197663 1353397777 381796135 400390805 1205569694 1002156623 1286070745 1196953698 554500486 1996912381 
+a list copied onto itself should be ok: 2 4 5 3 1 
+
+a list copied onto itself should be ok: 2 4 5 3 1 
+
+The end element is: 1
+0copying nodes
+1copying nodes
+2last element of lhs
+3deleting nodes
+4deleting nodes
+5deleting nodes
+after copied list goes out of scope: 20 10 
+The front element is: Dovvv
+The entire list is
+Dovvv Dav Dev Dov Cai Bec Ali 
+
+After removing the first element
+the last element is: Ali
+Dav Dev Dov Cai Bec Ali 
+
+a copy of the previous list is: 
+Dav Dev Dov Cai Bec Ali 
+
+about to make the second copy
+0copying nodes
+1copying nodes
+2iterating?
+3making new nodes
+4making new nodes
+5making new nodes
+a second copy of the copy appears as: 
+Dav Dev Dov Cai Bec 
+
+about to make an empty list
+an empty list is empty? true
+a copied empty list: 
+-100 
+a list copied onto itself should be ok: 2 4 5 3 1 
+
+a list copied onto itself should be ok: 2 4 5 3 1 
+
+The end element is: 1
+0copying nodes
+1copying nodes
+2last element of lhs
+3deleting nodes
+4deleting nodes
+5deleting nodes
+after copied list goes out of scope: 20 10 
+The front element is: Dovvv
+The entire list is
+Dovvv Dav Dev Dov Cai Bec Ali 
+
+After removing the first element
+the last element is: Ali
+Dav Dev Dov Cai Bec Ali 
+
+a copy of the previous list is: 
+Dav Dev Dov Cai Bec Ali 
+
+about to make the second copy
+0copying nodes
+1copying nodes
+2iterating?
+3making new nodes
+4making new nodes
+5making new nodes
+a second copy of the copy appears as: 
+Dav Dev Dov Cai Bec 
+
+about to make an empty list
+an empty list is empty? true
+a copied empty list: 
+-100 

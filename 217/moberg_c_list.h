@@ -1,6 +1,5 @@
 #ifndef MOBERG_C_LIST
 #define MOBERG_C_LIST
-
 typedef unsigned int uint;
 
 #include <cassert>
@@ -9,10 +8,10 @@ typedef unsigned int uint;
 using namespace std;
 
 /**
- * A simplified generic singly linked list class to illustrate C++ concepts
+ * a simplified generic singly linked list class to illustrate C++ concepts
  * @author Jon Beck
  * @author modified by Cameron Moberg
- * @version 2/6/2017
+ * @version FEB 17, 2017
  */
 template< typename Object >
 class List
@@ -50,13 +49,14 @@ public:
     List( const List & rhs )
             : size{ rhs.size }, first{ nullptr }, last{ nullptr }
     {
+        size = rhs.size;
         if ( !rhs.is_empty() )
         {
 
             Node * temp = first = new Node{ rhs.first->data };
             Node * rhs_temp = rhs.first;
 
-            while ( rhs_temp->next )
+            while ( rhs_temp->next != nullptr )
             {
                 rhs_temp = rhs_temp->next;
                 temp->next = new Node{ rhs_temp->data };
@@ -67,8 +67,8 @@ public:
     }
 
     /**
-     * Disallow the rvalue copy constructor.
-     */
+    * Disallow the rvalue copy constructor.
+    */
     List( const List && rhs ) = delete;
 
     /**
@@ -81,29 +81,61 @@ public:
             return *this;
 
         copy_nodes( rhs );
-        if ( size > rhs.size )
+
+        if ( size > rhs.size ) // lhs side is longer.
         {
             uint diff = size - rhs.size;
-            cout << diff << endl;
+            Node * iter = first;
+
+            //iterate to last actual element of new lhs.
+            for ( uint i = 0; i < rhs.size - 1; i++ )
+            {
+                iter = iter->next;
+            }
+
+            last = iter;
+
+            Node * current = iter->next;
+            Node * temp;
+            //delete rest of list.
             for ( uint i = 0; i < diff; i++ )
             {
-                delete_end();
+                temp = current;
+                current = current->next;
+                delete temp;
             }
+            last->next = nullptr;
         }
-        else if ( size < rhs.size )
+        else if ( size < rhs.size ) //rhs is longer.
         {
+            Node * rhs_iter = rhs.first;
+            Node * iter;
+            if ( is_empty() )
+            {
+                first = iter = new Node{ rhs_iter->data };
+                rhs_iter = rhs_iter->next;
+                size++;
+            }
+            else
+            {
+                iter = first;
+                for ( uint i = 1; i < size; i++ )
+                {
+                    iter = iter->next;
+                    rhs_iter = rhs_iter->next;
+                }
+            }
             uint diff = rhs.size - size;
-            Node * temp = rhs.first;
-
-            for ( uint i = 0; i < size; i++ )
-                temp = temp->next;
-
             for ( uint i = 0; i < diff; i++ )
             {
-                push_end( temp->data );
-                temp = temp->next;
+                rhs_iter = rhs_iter->next;
+                iter->next = new Node{ rhs_iter->data };
+                iter = iter->next;
             }
+            last = iter;
+            last->next = nullptr;
         }
+        size = rhs.size;
         return *this;
     }
 
@@ -113,9 +145,9 @@ public:
     List & operator=( const List && rhs ) = delete;
 
     /**
-    * The destructor that gets rid of everything that's in the list and
-    * resets it to empty. If the list is already empty, do nothing.
-    */
+     * The destructor that gets rid of everything that's in the list and
+     * resets it to empty. If the list is already empty, do nothing.
+     */
     ~List()
     {
         if ( size != 0 )
@@ -133,9 +165,9 @@ public:
     }
 
     /**
-     * Copies node data from rhs to lhs.
-     * @param rhs List to copy from.
-     */
+    * Copies node data from rhs to lhs.
+    * @param rhs List to copy from.
+    */
     void copy_nodes( const List & rhs )
     {
         Node * temp = first;
@@ -196,12 +228,12 @@ public:
     }
 
     /**
-    * Put a new element onto the beginning of the list
-    * @param item the data the new element will contain
-    */
+     * Put a new element onto the beginning of the list
+     * @param item the data the new element will contain
+     */
     void push_front( const Object & item )
     {
-        Node * new_node = new Node( item );
+        Node * new_node = new Node{ item };
 
         if ( is_empty() )
         {
@@ -216,9 +248,9 @@ public:
     }
 
     /**
-    * Remove the element that's at the front of the list. Causes an
-    * assertion error if the list is empty.
-    */
+     * Remove the element that's at the front of the list. Causes an
+     * assertion error if the list is empty.
+     */
     void pop_front()
     {
         assert( !is_empty() );
@@ -237,10 +269,10 @@ public:
     }
 
     /**
-    * Accessor to return the data of the element at the front of the list.
-    * Causes an assertion error if the list is empty.
-    * @return the data in the front element
-    */
+     * Accessor to return the data of the element at the front of the list.
+     * Causes an assertion error if the list is empty.
+     * @return the data in the front element
+     */
     const Object & front() const
     {
         assert( !is_empty() );
@@ -248,10 +280,10 @@ public:
     }
 
     /**
-    * Accessor to return the data of the element at the tail of the list.
-    * Causes an assertion error if the list is empty.
-    * @return the data in the last element
-    */
+     * Accessor to return the data of the element at the tail of the list.
+     * Causes an assertion error if the list is empty.
+     * @return the data in the last element
+     */
     const Object & tail() const
     {
         assert( !is_empty() );
@@ -259,19 +291,19 @@ public:
     }
 
     /**
-    * Accessor to determine whether the list is empty
-    * @return a boolean corresponding to the emptiness of the list
-    */
+     * Accessor to determine whether the list is empty
+     * @return a boolean corresponding to the emptiness of the list
+     */
     bool is_empty() const
     {
         return size == 0;
     }
 
     /**
-    * Generate a string representation of the list
-    * Requires operator<< to be defined for the list's object type
-    * @return string representation of the list
-    */
+     * Generate a string representation of the list
+     * Requires operator<< to be defined for the list's object type
+     * @return string representation of the list
+     */
 
     string to_string() const
     {
@@ -285,13 +317,20 @@ public:
         {
             buffer << current->data << ' ';
         }
-        return move( buffer.str() );
+        return buffer.str();
+    }
+
+    uint get_count()
+    {
+        return op_count;
     }
 
 private:
+    uint op_count;
     uint size;
     Node * first;
     Node * last;
 };
 
 #endif
+

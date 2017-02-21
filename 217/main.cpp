@@ -32,7 +32,7 @@ int main()
 
     cout << "The end element is: " << uint_list.tail() << endl;
 
-    if( !uint_list.is_empty() > 0 )
+    if ( !uint_list.is_empty() > 0 )
     {
         List< uint > ul2;
         ul2.push_front( 10 );
@@ -49,6 +49,10 @@ int main()
     string_list.push_front( "Bec" );
     string_list.push_front( "Cai" );
     string_list.push_front( "Dov" );
+    string_list.push_front( "Dev" );
+    string_list.push_front( "Dav" );
+    string_list.push_front( "Dovvv" );
+
     cout << "The front element is: " << string_list.front() << endl;
     cout << "The entire list is" << endl;
     cout << string_list.to_string() << endl;
@@ -66,6 +70,8 @@ int main()
     cout << endl;
 
     List< string > second_copy;
+    second_copy.push_front("RAY SUX");
+    second_copy.push_front("RAY SUX");
     cout << "about to make the second copy" << endl;
     second_copy = copy;
     cout << "a second copy of the copy appears as: " << endl;
@@ -73,10 +79,10 @@ int main()
     cout << endl;
 
     cout << "about to make an empty list" << endl;
-    List<int> empty;
+    List< int > empty;
     cout << "an empty list is empty? ";
-    cout <<  (empty.is_empty() ? "true" : "false") << endl;
-    List<int> empty2{empty};
+    cout << (empty.is_empty() ? "true" : "false") << endl;
+    List< int > empty2{ empty };
     cout << "a copied empty list: " << empty2.to_string() << endl;
 
     empty2.push_front( -100 );
