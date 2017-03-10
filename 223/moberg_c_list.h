@@ -8,10 +8,10 @@ typedef unsigned int uint;
 using namespace std;
 
 /**
- * a simplified generic singly linked list class to illustrate C++ concepts
+ * A simplified generic singly linked list class to illustrate C++ concepts
  * @author Jon Beck
- * @author modified by Cameron Moberg
- * @version FEB 17, 2017
+ * @author Modified by Cameron Moberg
+ * @version FEB 24, 2017
  */
 template< typename Object >
 class List
@@ -93,7 +93,6 @@ public:
             for ( uint i = 0; i < rhs.size - 1; i++ )
             {
                 iter = iter->next;
-                op_count++;
             }
 
             last = iter;
@@ -103,10 +102,10 @@ public:
             //delete rest of list.
             for ( uint i = 0; i < diff; i++ )
             {
-                op_count++;
                 temp = current;
                 current = current->next;
                 delete temp;
+                op_count++;
             }
             last->next = nullptr;
         }
@@ -123,9 +122,9 @@ public:
             else
             {
                 iter = first;
+                //iterate to last element of lhs
                 for ( uint i = 1; i < size; i++ )
                 {
-                    op_count++;
                     iter = iter->next;
                     rhs_iter = rhs_iter->next;
                 }
@@ -185,53 +184,6 @@ public:
             rhs_temp = rhs_temp->next;
             op_count++;
         }
-    }
-
-    /**
-     * Delete nodes after start_node, helper method for operator=.
-     * @param start_node Position of last node you want to stay.
-     */
-    void delete_end()
-    {
-        if ( !is_empty() )
-        {
-            Node * iter = first;
-
-            for ( uint i = 1; i < size - 1; i++ )
-            {
-                iter = iter->next;
-            }
-            last = iter;
-            Node * temp = iter->next;
-            last->next = nullptr;
-            delete temp;
-
-            size--;
-        }
-    }
-
-    /**
-     * Pushes a new element to end of list.
-     * @param item
-     */
-    void push_end( const Object & item )
-    {
-        if ( is_empty() )
-        {
-            first = last = new Node{ item };
-        }
-        else
-        {
-            Node * iter = first;
-            for ( uint i = 0; i < size - 1; i++ )
-            {
-                iter = iter->next;
-            }
-            iter->next = new Node{ item };
-            last = iter->next;
-            last->next = nullptr;
-        }
-        size++;
     }
 
     /**
@@ -340,4 +292,3 @@ private:
 };
 
 #endif
-
