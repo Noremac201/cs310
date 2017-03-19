@@ -14,9 +14,6 @@ using namespace std;
 
 typedef unsigned int uint;
 
-uint bf_count{ 0 };
-uint dc_count{ 0 };
-
 /**
  * Make a class that sorts ascending by the first element of a pair
  */
@@ -57,7 +54,8 @@ double distance( const pair< double, double > & p1,
     return sqrt( diff_xs * diff_xs + diff_ys * diff_ys );
 }
 
-double bf_close_pair_dist( const vector< pair< double, double>> & p )
+double bf_close_pair_dist( const vector< pair< double, double>> & p,
+                           uint & op_count )
 {
     double d = numeric_limits< double >::max();
 
@@ -65,10 +63,9 @@ double bf_close_pair_dist( const vector< pair< double, double>> & p )
     {
         for ( uint j = i + 1; j < p.size(); j++ )
         {
-            double diff_xs = p.at( i ).first - p.at( j ).first;
-            double diff_ys = p.at( i ).second - p.at( j ).second;
-            bf_count++;
-            d = min( d, diff_xs * diff_xs + diff_ys * diff_ys );
+            op_count++;
+            d = min( d, pow( p.at( i ).first - p.at( j ).first, 2 ) +
+                        pow( p.at( i ).second - p.at( j ).second, 2 ) );
         }
     }
     return sqrt( d );
@@ -84,14 +81,21 @@ double bf_close_pair_dist( const vector< pair< double, double>> & p )
  * @return the Cartesian distance between the closest pair of points
  */
 double dc_close_pair_dist( const vector< pair< double, double>> & p,
-                           const vector< pair< double, double>> & q )
+                           const vector< pair< double, double>> & q,
+                           uint & op_count )
 {
     if ( p.size() < 2 )
+    {
         return 0.0;
+    }
     if ( p.size() == 2 )
+    {
+        op_count++;
         return distance( p.at( 0 ), p.at( 1 ) );
+    }
     if ( p.size() == 3 )
     {
+        op_count += 3;
         double dist01 = distance( p.at( 0 ), p.at( 1 ) );
         double dist02 = distance( p.at( 0 ), p.at( 2 ) );
         double dist12 = distance( p.at( 1 ), p.at( 2 ) );
@@ -120,9 +124,8 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
     sort( ql.begin(), ql.end(), SortSecond() );
     sort( qr.begin(), qr.end(), SortSecond() );
 
-    double dl = dc_close_pair_dist( pl, ql );
-    double dr = dc_close_pair_dist( pr, qr );
-    dc_count++;
+    double dl = dc_close_pair_dist( pl, ql, op_count );
+    double dr = dc_close_pair_dist( pr, qr, op_count );
     double d = min( dl, dr );
     double m = p.at( p.size() / 2 - 1 ).first;
 
@@ -143,11 +146,11 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
         while ( k < s.size() &&
                 pow( s.at( k ).second - s.at( i ).second, 2.0 ) < dminsq )
         {
+            op_count++;
             dminsq = min( pow( s.at( k ).first - s.at( i ).first, 2.0 ) +
                           pow( s.at( k ).second - s.at( i ).second, 2.0 ),
                           dminsq );
             k++;
-            dc_count++;
         }
     }
     return sqrt( dminsq );
@@ -161,6 +164,8 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
  */
 int main()
 {
+    uint bf_count{ 0 };
+    uint dc_count{ 0 };
     vector< pair< double, double>> p; // Levitin's P array
     vector< pair< double, double>> q; // Levitin's Q array
 
@@ -179,10 +184,10 @@ int main()
     sort( p.begin(), p.end(), SortFirst() );
     sort( q.begin(), q.end(), SortSecond() );
 
-    double mindist = dc_close_pair_dist( p, q );
-    double bf_min = bf_close_pair_dist( p );
+    double dc_min = dc_close_pair_dist( p, q, dc_count );
+    double bf_min = bf_close_pair_dist( p, bf_count );
     cout << "Miniumum bf distance: " << bf_min << endl;
-    cout << "Miniumum dc distance: " << mindist << endl;
-    cout << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
+    cout << "Miniumum dc distance: " << dc_min << endl;
+    cerr << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
     return 0;
 }

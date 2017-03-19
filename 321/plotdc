@@ -1,0 +1,3 @@
+f(x) = log(x)
+g(x) = log(x) * x
+plot "data.dat" using 1:3, f(x), g(x)
