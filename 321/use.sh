@@ -1,8 +1,13 @@
 #!/bin/bash
 
-for n in `seq 100`
+for n in `seq 10000`
 do
-   echo $n
-   tail -$n points.dat | ./main 2>>data.dat
+   rm input.dat
+   for j in `seq $n`
+   do
+      echo $RANDOM $RANDOM >> input.dat
+   done
+   #main is the name of your executable, output is output
+   ./main < input.dat 2>>data.dat
 done
 

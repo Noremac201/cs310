@@ -1,3 +1,9 @@
-f(x) = log(x)
-g(x) = log(x) * x
-plot "data.dat" using 1:3, f(x), g(x)
+f(x) = .3*x*log(x)
+g(x) = x * .1 * log(x)
+set key off
+set xlabel "Input Size"
+set ylabel "Operation Count"
+set title "Empirical Analysis of Divide and Conquer Closest Pair Problem"
+set label 1 "1/3 nlog(n)" at 600, 1300 rotate by 37 font "Source Code Pro,11"
+set label 2 "1/10 nlog(n)" at 600, 300 rotate by 12 font "Source Code Pro,11"
+plot "data.dat" using 1:3 lt 7 lc black ps .5, f(x) lt rgb "#696969" lw 2,  g(x) lt rgb "#696969" lw 2

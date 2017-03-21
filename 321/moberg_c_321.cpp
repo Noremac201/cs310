@@ -57,18 +57,19 @@ double distance( const pair< double, double > & p1,
 double bf_close_pair_dist( const vector< pair< double, double>> & p,
                            uint & op_count )
 {
-    double d = numeric_limits< double >::max();
-
-    for ( uint i = 0; i < p.size(); i++ )
+    double min_dist = numeric_limits< double >::max();
+    uint size = p.size();
+    for ( uint i = 0; i < size - 1; i++ )
     {
-        for ( uint j = i + 1; j < p.size(); j++ )
+        for ( uint j = i + 1; j < size; j++ )
         {
             op_count++;
-            d = min( d, pow( p.at( i ).first - p.at( j ).first, 2 ) +
-                        pow( p.at( i ).second - p.at( j ).second, 2 ) );
+            min_dist = min( min_dist,
+                            pow( p.at( i ).first - p.at( j ).first, 2 ) +
+                            pow( p.at( i ).second - p.at( j ).second, 2 ) );
         }
     }
-    return sqrt( d );
+    return sqrt( min_dist );
 }
 
 /**
@@ -85,19 +86,19 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
                            uint & op_count )
 {
     if ( p.size() < 2 )
-    {
         return 0.0;
-    }
     if ( p.size() == 2 )
     {
-        op_count++;
+        //op_count++;
         return distance( p.at( 0 ), p.at( 1 ) );
     }
     if ( p.size() == 3 )
     {
-        op_count += 3;
+        //op_count++;
         double dist01 = distance( p.at( 0 ), p.at( 1 ) );
+        //op_count++;
         double dist02 = distance( p.at( 0 ), p.at( 2 ) );
+        //op_count++;
         double dist12 = distance( p.at( 1 ), p.at( 2 ) );
         double min01 = dist01 < dist02 ? dist01 : dist02;
         return min01 < dist12 ? min01 : dist12;
@@ -121,6 +122,7 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
     }
 
     // pl and pr and in order, but need to sort ql and qr
+    cout << "sorted" << endl;
     sort( ql.begin(), ql.end(), SortSecond() );
     sort( qr.begin(), qr.end(), SortSecond() );
 
@@ -146,7 +148,7 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
         while ( k < s.size() &&
                 pow( s.at( k ).second - s.at( i ).second, 2.0 ) < dminsq )
         {
-            op_count++;
+            //op_count++;
             dminsq = min( pow( s.at( k ).first - s.at( i ).first, 2.0 ) +
                           pow( s.at( k ).second - s.at( i ).second, 2.0 ),
                           dminsq );
