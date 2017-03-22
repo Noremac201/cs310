@@ -122,8 +122,9 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
     }
 
     // pl and pr and in order, but need to sort ql and qr
-    cout << "sorted" << endl;
+    op_count += ql.size() * log2(ql.size());
     sort( ql.begin(), ql.end(), SortSecond() );
+    op_count += qr.size() * log2(qr.size());
     sort( qr.begin(), qr.end(), SortSecond() );
 
     double dl = dc_close_pair_dist( pl, ql, op_count );
@@ -187,9 +188,10 @@ int main()
     sort( q.begin(), q.end(), SortSecond() );
 
     double dc_min = dc_close_pair_dist( p, q, dc_count );
-    double bf_min = bf_close_pair_dist( p, bf_count );
-    cout << "Miniumum bf distance: " << bf_min << endl;
+    //double bf_min = bf_close_pair_dist( p, bf_count );
+    //cout << "Miniumum bf distance: " << bf_min << endl;
     cout << "Miniumum dc distance: " << dc_min << endl;
-    cerr << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
+    //cerr << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
+    cerr << p.size() << '\t' << 0 << '\t' << dc_count << endl;
     return 0;
 }

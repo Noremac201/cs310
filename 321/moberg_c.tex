@@ -39,10 +39,10 @@ T(n) \in \Theta( n^{2} )
 \]
 
 \clearpage
-To analyze the divide-and-conquer algorithm, we chose calling the distance method on lines 92 and 99--103 and calculating the distance on lines 150--153 as the basic operations, because these happen most frequently, and are the philosophical heart of this algorithm. There was also the option of choosing the comparison to find the minimum distance (lines 102--103), but compared to finding the distance, it is much less expensive to compare two numbers rather than compute.
+To analyze the divide-and-conquer algorithm, we chose the sort method on lines 126--128 as the basic operation since it is by far the most expensive operation compared to all other possible choices. After research into the std::sort function that C++11 uses, it has been determined that the sorting algorithm used is of runtime complexity $\Theta(n$ log$(n))^1$.
 
 An empirical analysis of running the algorithm for multiple values of
-$n$ produces the results shown below. The standard function $f(n) = n$ log$(n)$ with constant multipliers, has been added to
+$n$ produces the results shown below. The standard function $f(n) = n$ log$^2(n)$ with constant multipliers, has been added to
 illustrate the analysis.
 
 \begin{center}
@@ -51,17 +51,30 @@ illustrate the analysis.
 
 An examination of the code itself explains the empirical results when we observe that this algorithm is recursive, lending us the ability to use the Master Theorem, which is of the form
 \begin{center}
-	$T(n)=aT(\frac{n}{b}) + f(n)$ where $a \geq 1, b > 1$
+	$T(n)=aT(\frac{n}{b}) + f(n)$ where $a \geq 1, b > 1$, and $d \geq 0$
 \end{center}
 
-Now, this algorithm has two recursive calls, each recursive call operates on half of the input, and $f(n) \in \Theta( n )$ where $f(n)$ is the local work, because both dividing the problem in half and combining the solutions take linear time. Thus, applying the Master Theorem with $a,b,$ and $d$ equal to $2,2$, and $1$ respectively, we get $T(n) \in \Theta(n$ log($n$)).
+Now, this algorithm has two recursive calls, each recursive call operates on half of the input, and $f(n) \in \Theta( n$ log$(n) )$ where $f(n)$ is the local work, in this case, std::sort. However, with $f(n)$ of the form $n$ log$n$, we cannot use the Master Theorem traditionally, and must use a special case where$^2$ \\ \\
+	If it is true for some constant, $k\geq 0$, that: \\
 
-In addition, the input does not need to be pre-sorted, since using a $O(n $ log$(n)$) efficiency sorting algorithm will not change the asymptotic behavior of this algorithm. 
+\begin{center}
+	$f(n) = \Theta(n^c$log$^kn$) where $c=$log$_ba$ \\
+\end{center}
+	then, \\
+\begin{center}
+	$T(n) = \Theta(n^c$log$^{k+1}n)$
+\end{center}
 
-Therefore, since the divide-and-conquer algorithm always runs to completion we conclude that the algorithm is described by
+ Thus, after applying the Master Theorem with $c=$log$_22=1$ and $k=1$ (since $f(n)=n$log$n$) we get $T(n)=\Theta(n$log$^2n$). 
+Therefore, since the divide-and-conquer algorithm always runs to completion we conclude, from using the Master Theorem, that the algorithm is described by
 
 \begin{center}
 $T(n) \in \Theta( n $ log$(n)$)
+\end{center}
+
+\clearpage
+\begin{center}
+{\large References}\\
 \end{center}
 
 \end{document}

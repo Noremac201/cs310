@@ -1,18 +1,21 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.3.13)  21 MAR 2017 13:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.3.13)  21 MAR 2017 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**output_bf.tex
-(./output_bf.tex
+**output_dc.tex
+(./output_dc.tex
 LaTeX2e <2016/03/31> patch level 3
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 \gptboxheight=\skip41
 \gptboxwidth=\skip42
 \gptboxtext=\box26
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 114.
+(Font)              <7> on input line 112.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 114.
+(Font)              <5> on input line 112.
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no g in font nullfont!
 
 ! Package graphicx or graphics not loaded.
 
@@ -20,7 +23,7 @@ See the gnuplot documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.115     \put(0,0){\includegraphics{output_bf}}
+l.113     \put(0,0){\includegraphics{output_dc}}
                                                 %
 The gnuplot epslatex terminal needs graphicx.sty or graphics.sty.
 
@@ -66,16 +69,22 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no f in font nullfont!
-Missing character: There is no B in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no u in font nullfont!
-Missing character: There is no t in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no v in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no F in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no C in font nullfont!
 Missing character: There is no o in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no c in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no q in font nullfont!
+Missing character: There is no u in font nullfont!
 Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
 Missing character: There is no C in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
@@ -101,14 +110,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.117   \end{picture}
+l.115   \end{picture}
                      %
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 )
 ! Emergency stop.
-<*> output_bf.tex
+<*> output_dc.tex
                  
 *** (job aborted, no legal \end found)
 
@@ -116,9 +125,9 @@ If that doesn't work, type  X <return>  to quit.
 Here is how much of TeX's memory you used:
  27 strings out of 493013
  391 string characters out of 6139317
- 55632 words of memory out of 5000000
+ 54632 words of memory out of 5000000
  3671 multiletter control sequences out of 15000+600000
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 22i,6n,19p,117b,159s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 22i,5n,19p,124b,159s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!

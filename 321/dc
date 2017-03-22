@@ -1,0 +1,9 @@
+f(x) = 1.5 *x*log(x) * log(x)
+g(x) = .5 * x * log(x) * log(x)
+set key off
+set xlabel 'Input Size'
+set ylabel "Operation Count"
+set title "Empirical Analysis of Divide and Conquer Closest Pair Problem"
+set label 1 '$3/2 nlog^2(n)$' at 1500, 150000 rotate by 37 font "Source Code Pro, 11" 
+set label 2 '$1/2 nlog^2(n)$' at 2000, 40000 rotate by 12 font "Source Code Pro, 11"
+plot "newfile" using 1:3 lt 7 lc black ps .5, f(x) lt rgb "#696969" lw 2,  g(x) lt rgb "#696969" lw 2
