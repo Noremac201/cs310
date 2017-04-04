@@ -1,0 +1,98 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{ynt/global/}
+    \entry{algo}{book}{}
+      \name{author}{2}{}{%
+        {{hash=5a0b95fef2629a33091ac55a4ff5f1ed}{%
+           family={Goodrich},
+           familyi={G\bibinitperiod},
+           given={Michael\bibnamedelima T.},
+           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=73002fbcaa8fe0ee76011401f23f2ab3}{%
+           family={Tamassia},
+           familyi={T\bibinitperiod},
+           given={Roberto},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{db9b49c3670f1e4ec11ba2201386218f}
+      \strng{fullhash}{db9b49c3670f1e4ec11ba2201386218f}
+      \strng{authornamehash}{db9b49c3670f1e4ec11ba2201386218f}
+      \strng{authorfullhash}{db9b49c3670f1e4ec11ba2201386218f}
+      \field{labelalpha}{GT01}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{1}
+      \field{isbn}{9780471383659}
+      \field{title}{Algorithm Design: Foundations, Analysis, and Internet Examples}
+      \field{year}{2001}
+      \field{pages}{268\bibrangedash 270}
+      \range{pages}{3}
+    \endentry
+    \entry{cplus}{article}{}
+      \list{publisher}{1}{%
+        {ISO}%
+      }
+      \field{labelalpha}{11}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labeltitlesource}{title}
+      \field{note}{\url{http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2011/n3242.pdf}}
+      \field{title}{Working Draft, Standard for Programming Language C++}
+      \field{volume}{N3225}
+      \field{year}{2011}
+      \field{pages}{911}
+      \range{pages}{1}
+    \endentry
+    \entry{levit}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b8c5380e32b4da70acc1606f1e633ffa}{%
+           family={Levitin},
+           familyi={L\bibinitperiod},
+           given={Anany},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Pearson}%
+      }
+      \strng{namehash}{b8c5380e32b4da70acc1606f1e633ffa}
+      \strng{fullhash}{b8c5380e32b4da70acc1606f1e633ffa}
+      \strng{authornamehash}{b8c5380e32b4da70acc1606f1e633ffa}
+      \strng{authorfullhash}{b8c5380e32b4da70acc1606f1e633ffa}
+      \field{labelalpha}{Lev12}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{9780132316811}
+      \field{title}{Introduction to The Design and Analysis of Algorithms}
+      \field{year}{2012}
+      \keyw{algorithms}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

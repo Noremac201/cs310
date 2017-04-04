@@ -4,23 +4,29 @@
 \usepackage[parfill]{parskip}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[
+backend=biber,
+citestyle=alphabetic,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{sample.bib}
 
 \begin{document}
 \thispagestyle{empty}
-\begin{center}
-{\large CS 310}\\
-Assignment 321
-\end{center}
+\title{CS 310 \\
+\large Assignment 321}
+\date{March 23, 2017}
+\author{Cameron Moberg}
+\maketitle
 
-\begin{flushright}
-Cameron Moberg
-\end{flushright}
-
-There are several ways to solve the closest-pair problem, the two done in this analysis are the brute-force method, where you compare every single pair and find the smallest, and the divide-and-conquer method. The purpose of this study is to perform an empirical analysis of the two methods.
+There are several ways to solve the closest-pair problem; the two done in this analysis are the brute force method and the divide and conquer method. The purpose of this study is to perform an empirical analysis of the two methods.
 
 For both methods, the value for $n$ is taken to be the number of points in the plane.
 
-To analyze the brute-force algorithm, we chose calculating the distance on line 67 as the basic operation, because this happens most frequently, is the most expensive, and is the philosophical heart of this algorithm.
+\section{Brute Force}
+To analyze the brute force algorithm, we chose calculating the distance on line 67 as the basic operation because this happens most frequently, is the most expensive, and is the philosophical heart of this algorithm.
 
 An empirical analysis of running the algorithm for multiple values of
 $n$ produces the results shown below. Standard function $f(n) = n^2$ with constant multipliers, has been added to
@@ -30,19 +36,38 @@ illustrate the analysis.
     \input{output_bf}
 \end{center}
 
-An examination of the code itself explains the empirical results when we observe that there is a doubly-nested for loop that iterates over the input size. 
-
-Therefore, since the brute-force algorithm always runs to completion we conclude that the algorithm is described by
+An examination of the code itself explains the empirical results when we observe that there is a doubly-nested for-loop that iterates over the input size. Therefore, since the brute force algorithm is deterministic we conclude that the algorithm is described by
 
 \[
 T(n) \in \Theta( n^{2} )
 \]
 
-\clearpage
-To analyze the divide-and-conquer algorithm, we chose the sort method on lines 126--128 as the basic operation since it is by far the most expensive operation compared to all other possible choices. After research into the std::sort function that C++11 uses, it has been determined that the sorting algorithm used is of runtime complexity $\Theta(n$ log$(n))^1$.
+This analysis agrees with our author, however, in this case the elementary operation is calculating the squared distance, rather than the square root, which is only calculated once instead of every iteration. This only speeds up the algorithm by a constant factor, not impacting the efficiency class \cite{levit}.
 
+\section{Divide and Conquer}
+To analyze the divide and conquer algorithm, we chose the sort method on lines 122--124 as the basic operation since it is by far the most expensive operation compared to all other possible choices. After research into the \texttt{std::sort} function that C++11 uses it has been determined that the sorting algorithm used is of the runtime complexity $O(n\log n)$\cite{cplus}. Since we cannot (easily) edit the \texttt{std::sort} function, we must assume that the basic operations after each sort is increased by an $n\log n$ amount of operations, where $n$ is the number of elements sorted.
+
+There is also the chance that all the points are included in the strip between the left and right sets of points. This makes it seem like we must use the brute force method on them which would make the local work $n^2$. However, due to the geometry of the closest-pair problem, we only need to check the 6 closest pairs. This is because of the constraint that for any point, $p$, we are only interested in the other points that are at most $\delta$ distance away, where $\delta$ is the calculated distance from earlier calculations. Shown below is a geometric example of this concept.
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (4,0) -- (4,2) -- (0,2) -- (0,0);
+\draw (2,2) -- (2,0);
+\node at (1,2.25) {$\delta$};
+\node at (3,2.25) {$\delta$};
+\node at (-.25,1) {$\delta$};
+\node[circle, fill, inner sep=2pt, label=left:$p$] at(0,2){};
+\node[circle, fill, inner sep=2pt] at(2,2){};
+\node[circle, fill, inner sep=2pt] at(2,0){};
+\node[circle, fill, inner sep=2pt] at(0,0){};
+\node[circle, fill, inner sep=2pt] at(4,2){};
+\node[circle, fill, inner sep=2pt] at(4,0){};
+\end{tikzpicture}
+\end{center}
+Notice how at most there are 5 other points in the $2\delta$ by $\delta$ rectangle. Showing we only need to check at most the next 6 pairs, meaning at most $6n$ comparisons are needed to check all pairs in the strip \cite{levit}.
+
+\clearpage
 An empirical analysis of running the algorithm for multiple values of
-$n$ produces the results shown below. The standard function $f(n) = n$ log$^2(n)$ with constant multipliers, has been added to
+$n$ produces the results shown below. The standard function $f(n) = n\log^2 n$ with constant multipliers, has been added to
 illustrate the analysis.
 
 \begin{center}
@@ -50,31 +75,48 @@ illustrate the analysis.
 \end{center}
 
 An examination of the code itself explains the empirical results when we observe that this algorithm is recursive, lending us the ability to use the Master Theorem, which is of the form
+\[
+	T(n)=aT(\frac{n}{b}) + f(n) \text{ where } a \geq 1, b > 1, \text{ and } d \geq 0
+\]
+	
+The divide and conquer algorithm has two recursive calls where each recursive call operates on half of the input. As previously stated, the local work ($f(n)$) for this algorithm is \texttt{std::sort}, which is $( n\log n )$. Additionally, there is no official documentation stating the best case runtime of C++11's sorting algorithm, so our analysis must use Big-$O$ instead of Big-$\Theta$. Since $f(n)\in O(n\log n)$ we cannot use the Master Theorem traditionally, and must use a special case where \\ \\
+	if it is true for some constant, $k\geq 0$, such that:
+
+\[	f(n) = \Theta(n^c\log^kn) \text{ where } c=\log_ba
+\]
+	then:
+\[	
+T(n) = \Theta(n^c\log^{k+1}n)
+\]
+
+ Thus, after applying this case of the Master Theorem with $c=\log_22=1$ and $k=1$ (since $f(n)=n\log n=n^{\log_22}\log^1n$) we arrive at $T(n)=O(n\log^2n$) \cite{algo}.
+Seeing that the divide and conquer algorithm always runs to completion and the best-case scenario is not offered we conclude, from the  Master Theorem, that the algorithm is described by
+\[
+T(n) \in O( n \log^2n)
+\]
+We can infer, however, the possibilities of what the Big-$\Omega$ for \texttt{std::sort} could be. The efficiency of this algorithm is determined by the local work: \texttt{std::sort} ($f(n)$ from now on). By observation, we see that $f(n)\in \Omega(n\log n$), or $f(n) \in \Omega(n)$. Notice that $f(n) \notin \Omega(1)$  because sorting algorithms must process the entire input to ensure it is sorted. Also notice that $f(n)$ cannot be of a worse complexity than $\Omega(n\log n)$ because it has already been determined that $f(n)\in O(n\log n)$. So from the two possible scenarios shown above there are two possible Big-$\Omega$ runtimes for $T(n)$. Consider the following cases.
+
+\textbf{Case 1:} $f(n) \in \Omega(n)$\\
+ In this case we can use the Master's Theorem traditionally with $a=2,b=2,d=1$ showing the entire divide and conquer algorithm would be of the form
+\[
+T(n) \in O( n \log^2n)
+\]
+\[
+T(n) \in \Omega(n \log n)
+\]
+\textbf{Case 2:} $f(n) \in \Omega(n\log n$)\\
+ In this case both the Big-$O$ and Big-$\Omega$ will be the same efficiency, tightening the bound to Big-$\Theta$. After using the special case of the Master Theorem, it can be shown that algorithm would be of the form
 \begin{center}
-	$T(n)=aT(\frac{n}{b}) + f(n)$ where $a \geq 1, b > 1$, and $d \geq 0$
+$T(n) \in \Theta(n\log^2n$)
 \end{center}
+\vspace{10 mm}
 
-Now, this algorithm has two recursive calls, each recursive call operates on half of the input, and $f(n) \in \Theta( n$ log$(n) )$ where $f(n)$ is the local work, in this case, std::sort. However, with $f(n)$ of the form $n$ log$n$, we cannot use the Master Theorem traditionally, and must use a special case where$^2$ \\ \\
-	If it is true for some constant, $k\geq 0$, that: \\
-
+Unfortunately, neither scenario agrees with our author's analysis who determined the algorithm was
 \begin{center}
-	$f(n) = \Theta(n^c$log$^kn$) where $c=$log$_ba$ \\
+$T(n) \in \Theta( n\log n$)
 \end{center}
-	then, \\
-\begin{center}
-	$T(n) = \Theta(n^c$log$^{k+1}n)$
-\end{center}
-
- Thus, after applying the Master Theorem with $c=$log$_22=1$ and $k=1$ (since $f(n)=n$log$n$) we get $T(n)=\Theta(n$log$^2n$). 
-Therefore, since the divide-and-conquer algorithm always runs to completion we conclude, from using the Master Theorem, that the algorithm is described by
-
-\begin{center}
-$T(n) \in \Theta( n $ log$(n)$)
-\end{center}
-
+This is because the author states that, ``The algorithm spends linear time both for dividing the problem into two problems half the size and combining the obtained solutions"\cite{levit}. However, the author does not account for the fact that the points must be sorted by $Y$ coordinate every recursive call. As stated above sorting is $O(n\log n)$ which will dominate the linear work. Since the local work has changed, the author's calculated $f(n)=n$ should now be $f(n)=n\log n$, which changes the runtime efficiency of this algorithm.
+\nocite{*}
 \clearpage
-\begin{center}
-{\large References}\\
-\end{center}
-
+\printbibliography
 \end{document}

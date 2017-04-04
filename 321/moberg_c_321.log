@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.3.13)  21 MAR 2017 14:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.11.27)  21 MAR 2017 22:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -255,10 +255,10 @@ e
 \gptboxwidth=\skip47
 \gptboxtext=\box29
 Package epstopdf Info: Source file: <output_bf.eps>
-(epstopdf)                    date: 2017-03-21 10:43:01
+(epstopdf)                    date: 2017-03-21 00:23:27
 (epstopdf)                    size: 21744 bytes
 (epstopdf)             Output file: <output_bf-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-21 10:43:01
+(epstopdf)                    date: 2017-03-21 00:23:30
 (epstopdf)                    size: 9277 bytes
 (epstopdf)             Command: <repstopdf --outfile=output_bf-eps-converted-to
 .pdf output_bf.eps>
@@ -276,10 +276,10 @@ Package pdftex.def Info: output_bf-eps-converted-to.pdf used on input line 115.
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./output_bf-eps-converted-
 to.pdf>] (./output_dc.tex
 Package epstopdf Info: Source file: <output_dc.eps>
-(epstopdf)                    date: 2017-03-21 13:52:20
+(epstopdf)                    date: 2017-03-21 21:57:28
 (epstopdf)                    size: 21777 bytes
 (epstopdf)             Output file: <output_dc-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-03-21 13:52:42
+(epstopdf)                    date: 2017-03-21 21:57:28
 (epstopdf)                    size: 9657 bytes
 (epstopdf)             Command: <repstopdf --outfile=output_dc-eps-converted-to
 .pdf output_dc.eps>
@@ -293,44 +293,28 @@ File: output_dc-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: output_dc-eps-converted-to.pdf used on input line 113.
 
 (pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 57--59
+) [2
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 57--59
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
-
- []
-
-[2
-
- <./output_dc-eps-converted-to.pdf>] [3
-
-] (./moberg_c_321.aux) ) 
+ <./output_dc-eps-converted-to.pdf>]
+(./moberg_c_321.aux) ) 
 Here is how much of TeX's memory you used:
  2623 strings out of 493013
- 35416 string characters out of 6139317
+ 35416 string characters out of 6139316
  107050 words of memory out of 5000000
  6130 multiletter control sequences out of 15000+600000
  7351 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,6n,32p,381b,244s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/bold/.texlive/texmf-var/fonts/pk/ljfour/public/
-cm/cmmi8.600pk> </home/bold/.texlive/texmf-var/fonts/pk/ljfour/public/cm/cmsy10
-.657pk> </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr8.pk> </home
-/bold/.texlive/texmf-var/fonts/pk/ljfour/public/cm/cmmi10.657pk> </home/bold/.t
-exlive/texmf-var/fonts/pk/ljfour/public/cm/cmr10.657pk> </usr/share/texmf-dist/
-fonts/pk/ljfour/public/cm/dpi600/cmr12.pk>
-Output written on moberg_c_321.pdf (3 pages, 47415 bytes).
+ 40i,6n,32p,493b,244s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb>
+Output written on moberg_c_321.pdf (2 pages, 79831 bytes).
 PDF statistics:
- 138 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 41 PDF objects out of 1000 (max. 8388607)
+ 28 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

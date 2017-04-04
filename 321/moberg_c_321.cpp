@@ -2,7 +2,8 @@
  * algorithm EfficientClosestPair from Levitin 3rd p194
  * closest pair by divide and conquer
  * @author Jon Beck
- * @version 4 March 2017
+ * @author modified by Cameron Moberg
+ * @version 23 March 2017
  */
 
 #include <algorithm>
@@ -88,17 +89,11 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
     if ( p.size() < 2 )
         return 0.0;
     if ( p.size() == 2 )
-    {
-        //op_count++;
         return distance( p.at( 0 ), p.at( 1 ) );
-    }
     if ( p.size() == 3 )
     {
-        //op_count++;
         double dist01 = distance( p.at( 0 ), p.at( 1 ) );
-        //op_count++;
         double dist02 = distance( p.at( 0 ), p.at( 2 ) );
-        //op_count++;
         double dist12 = distance( p.at( 1 ), p.at( 2 ) );
         double min01 = dist01 < dist02 ? dist01 : dist02;
         return min01 < dist12 ? min01 : dist12;
@@ -121,10 +116,12 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
         qr.push_back( p.at( i ) );
     }
 
-    // pl and pr and in order, but need to sort ql and qr
-    op_count += ql.size() * log2(ql.size());
+    // We assume that the sort algorithm is Theta(nlogn),
+    // therefore everytime sort is called we add nlogn operations
+    // to op_count where n is the number of elements.
+    op_count += ql.size() * log2( ql.size() );
     sort( ql.begin(), ql.end(), SortSecond() );
-    op_count += qr.size() * log2(qr.size());
+    op_count += qr.size() * log2( qr.size() );
     sort( qr.begin(), qr.end(), SortSecond() );
 
     double dl = dc_close_pair_dist( pl, ql, op_count );
@@ -149,7 +146,6 @@ double dc_close_pair_dist( const vector< pair< double, double>> & p,
         while ( k < s.size() &&
                 pow( s.at( k ).second - s.at( i ).second, 2.0 ) < dminsq )
         {
-            //op_count++;
             dminsq = min( pow( s.at( k ).first - s.at( i ).first, 2.0 ) +
                           pow( s.at( k ).second - s.at( i ).second, 2.0 ),
                           dminsq );
@@ -188,10 +184,10 @@ int main()
     sort( q.begin(), q.end(), SortSecond() );
 
     double dc_min = dc_close_pair_dist( p, q, dc_count );
-    //double bf_min = bf_close_pair_dist( p, bf_count );
-    //cout << "Miniumum bf distance: " << bf_min << endl;
+    double bf_min = bf_close_pair_dist( p, bf_count );
+    cout << "Miniumum bf distance: " << bf_min << endl;
     cout << "Miniumum dc distance: " << dc_min << endl;
-    //cerr << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
-    cerr << p.size() << '\t' << 0 << '\t' << dc_count << endl;
+    cerr << p.size() << '\t' << bf_count << '\t' << dc_count << endl;
+    
     return 0;
 }
