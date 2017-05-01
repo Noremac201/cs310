@@ -15,8 +15,8 @@ typedef unsigned int uint;
 /**
  * a generic heap class for use in analyzing build_heap and heap_sort algorithms
  * @author Jon Beck
- * @author modified by Your Name Here
- * @version date you last modified the file here
+ * @author modified by Cameron Moberg
+ * @version 6 April 2017
  */
 template< typename Comparable >
 class Heap
@@ -118,7 +118,7 @@ public:
         Heap h = *this;
 
         uint size = result.size();
-        for ( uint i = size - 1; i != 0; i-- )
+        for ( uint i = size - 1; i != UINT_MAX; i-- )
         {
             result.at( i ) = h.delete_max();
         }
@@ -129,6 +129,30 @@ public:
         */
         sort_count = h.sort_count;
     }
+//    void heap_sort( vector< Comparable > & result )
+//    {
+//        sort_count = 0;
+//
+//        vector<Comparable> temp = result = array;
+//        /*
+//         * To preface this, understand that this is an odd implementation of
+//         * heap sort purely because heap_sort is in the Heap class, and this
+//         * method assumes that we are modifying an array that will have all of
+//         * the same elements of the heap array.
+//         */
+//
+//        uint size = result.size();
+//        for ( uint i = size - 1; i != UINT_MAX; i-- )
+//        {
+//            result.at( i ) = delete_max();
+//        }
+//        /*
+//        * Since the basic operation for sort is inside of another method called
+//        * by delete max, percolate_down(), we only want the operations
+//        * made by the h Heap.
+//        */
+//        array = temp;
+//    }
 
     /**
      * generate a string representation of the array in its current state
@@ -184,12 +208,13 @@ private:
         uint r_chld_idx = l_chld_idx + 1;
         Comparable lg_chld;
 
-        //We're technically counting the max statement on line 188.
-        op_count++;
         if ( l_chld_idx >= array.size() )
             return;
         else if ( r_chld_idx < array.size() )
+        {
+            op_count++;
             lg_chld = max( array.at( l_chld_idx ), array.at( r_chld_idx ) );
+        }
         else
             lg_chld = array.at( l_chld_idx );
 

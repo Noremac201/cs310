@@ -7,6 +7,7 @@
 \usepackage[parfill]{parskip}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{caption}
 \usepackage[obeyspaces,spaces]{url}
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -40,36 +41,37 @@ sorting=ynt
 
 \begin{document}
 \thispagestyle{empty}
-\title{Assignment 406 \\
-\large CS 310}
-\date{April 2, 2017}
+\title{Brief Analysis of Build Heap and Heapsort Algorithms \\
+\large Assignment 406 \\
+CS 310}
+\date{April 6, 2017}
 \author{Cameron Moberg}
 \maketitle
 
-The heap is a tree-based data structure, where the root is empty or contains a data element of either higher or lower value than both of its children. 
-The former is called a \textit{max heap} and the latter a \textit{min heap}.
-In this analysis we will exclusively be referring to a \textit{max heap}, and will be analyzing a method that the heap uses: \method{build_heap()}, and a method that is implemented using a heap: \method{heap_sort()}.
+A heap is a binary-tree-based data structure, where, depending on the type, the parent of a node is always bigger or always smaller than its children.
+The former is called a \textit{max heap}; the latter a \textit{min heap}, and in this analysis we will exclusively be referring to a \textit{max heap}. We will also be analyzing methods that heaps are integral in: \method{build_heap} and \method{heap_sort}.
 
-For both methods, the value for $n$ is taken to be the number of nodes in the heap.
+For both methods, the value for $n$ represents the number of nodes in the heap.
 
 \section{Build Heap}
-To analyze the \method{build_heap()} algorithm, we chose the \method{percolate_down()} method on line 160 as the basic operation because this happens most frequently, is the most expensive, and is the philosophical heart of this algorithm.
-
-However, as it turns out \method{percolate_down()} is the only method called by \method{build_heap()}, and thus we must analyze it in order to find the time complexity of the  \method{build_heap()} method.
+To analyze the \method{build_heap} algorithm, we chose the \method{percolate_down} algorithm on line 165 as the basic operation because it is called most frequently, is the most expensive, and is the philosophical heart of this algorithm. However, the runtime of  \method{percolate_down} is unknown and thus we must first analyze it to compute the time complexity of  \method{build_heap}.
 \subsection{Percolate Down}
 
-To analyze the \method{percolate_down()} algorithm, we chose both the comparison between child nodes on line 188, and comparison between root and the largest child node on line 195 as the basic operations. This is because they occur most frequently and are the philosophical heart of this algorithm. Regardless of the operation chosen, all of the local work inside of \method{percolate_down()} is linear, will only impact the constants and not the end analysis.
+To analyze the \method{percolate_down} algorithm we chose both the comparison between child nodes on line 192 and the comparison between root value and the largest valued child node on line 200 as the basic operations. This is because they occur almost equally frequently and are the philosophical heart of this algorithm. Even though checking whether or not the node has children occurs most frequently, we didn't choose it as the basic operation because it's not the comparison we truly care about.
 
-In this algorithm, we assume that the root node's children are heaps, and compare the root node with both of its children. If any of the children are bigger than the root node, we swap values with the largest child, and then recursively call \method{percolate_down()} on the node that we swapped the root with. We repeat this until the root node has no children or is greater than or equal in value to its children.
-
-An empirical analysis of running \method{percolate_down()} for multiple values of $n$ produces the results shown below. Standard function $f(n) = \log n$ with constant multipliers, has been added to illustrate the analysis.
-
+In this algorithm, we must assume that the root node's children are recursively heaps and then compare the root with both of its children. If any of the (at most 2) children are bigger in value than the root node, we swap values with the highest valued node, and then recursively use \method{percolate_down} on the node that was just swapped. We repeat this until the node is greater than or equal to its children or it is a leaf.
 \clearpage
+
+An empirical analysis of the \method{percolate_down} algorithm with multiple values of $n$ produces the results shown in Figure \ref{fig:perc}. The standard function $f(n) = \log n$ with a constant multiplier has been added to illustrate the analysis.
+
+\begin{figure} [h]
 \begin{center}
     \input{perc}
-\end{center}
+    \caption{\small \sl Results of percolate down algorithm.\label{fig:perc}}  
 
-The \CC method used to produce this:
+\end{center}
+\end{figure}
+The \CC method used to produce Figure \ref{fig:perc} is shown below.
 
 \begin{lstlisting}
     void empiric_perc( Comparable key )
@@ -79,11 +81,11 @@ The \CC method used to produce this:
     }
 \end{lstlisting}
 
-In short, we set $key$ to a generated (pseudo) random number, then we set the root node of the heap equal to it, and then \method{percolate_down()} was called with the root node index in order to simulate a ``worst case scenario".
+In short, we set $key$ to a generated (pseudo) random number, set the root node of the heap equal to it, and then \method{percolate_down} is used on the root node to to simulate a ``worst-case scenario''.
 
-An examination of the \method{percolate_down()} method itself explains the empirical results when we observe that if the root node's value is the smallest of all nodes in the tree, it will have to end up as a leaf, at the bottom of the tree. This requires a comparison at every level of the tree, or, $\log n$ comparisons.
+An examination of the \method{percolate_down} implementation explains the empirical results when we observe that, in the worst-case, the root node's value is the smallest of all nodes in the tree. This means the node has to sift down through every level of the tree and become a leaf, at the bottom of the tree. This requires a comparison at every level, or, $\log n$ comparisons \cite{anal}.
 
-Since this algorithm can end early, we cannot tighten the bound to Big-$\Theta$, and thus the \method{percolate_down()} algorithm can be described as 
+Since this algorithm can terminate prematurely, we cannot tighten the bound to Big-$\Theta$, and thus the \method{percolate_down} algorithm can be described as 
 
 \[
 T(n) \in O( \log n)
@@ -94,18 +96,17 @@ T(n) \in \Omega(1)
 \clearpage
 \subsection{Build Heap cont.}
 
-An empirical analysis of running \method{build_heap()} with multiple values of $n$ produces the results shown below. Standard function $f(n) = n$ with constant multipliers, has been added to
-
+An empirical analysis of running \method{build_heap()} with multiple values of $n$ produces the results shown in Figure \ref{fig:build}. The standard function $f(n) = n$ with constant multipliers has been added to further illustrate the analysis.
+\begin{figure}[h]
 \begin{center}
     \input{build}
+     \caption{\small \sl Results of build heap algorithm.\label{fig:build}}  
 \end{center}
+\end{figure}
 
-At first glance, it would appear that the algorithm is described by $O(n \log n)$ since there is a single deterministic loop that iterates $\frac{n}{2} - 1$ times containing a $O(\log n)$ method. This is technically correct, but not the best we can do.
-Upon closer inspection we can tighten the bound to $O(n)$.
-
-This is because of the fact that most of the work is comparisons are done on the lower levels, where there are less total comparisons than the higher levels. In a full binary tree there are $n=2^{h+1}-1$ nodes, where $h$ is the height of the tree. The number of comparisons in \method{build_heap()} is shown below.
+\begin{figure}[h]
 \begin{center}
- \begin{tabular}{||c c c||} 
+ \begin{tabular}{||c | c | c||} 
  \hline
  Depth of Nodes &  Height of Nodes & Num. of Comparisons \\ [0.5ex] 
  \hline
@@ -113,7 +114,7 @@ This is because of the fact that most of the work is comparisons are done on the
  $h$ & 0 & 0 \\
  \hline 
  
- $h-1$ & 1 & $2 \frac{n}{4}$  \\ 
+ $h-1$ & 1 & $2(\frac{n}{4})$  \\ 
  \hline
  
  $h-2$ & 2 & $2(\frac{n}{8} + \frac{n}{4})$  \\
@@ -126,38 +127,61 @@ This is because of the fact that most of the work is comparisons are done on the
  \hline
 \end{tabular}
 \end{center}
+\caption{\small \sl Breakdown of total comparisons by height of heap, in worst-case. \label{fig:tab}}
+\end{figure}
 
-When \method{build_heap()} runs on a full binary tree, it starts on the level one above all of the leaves, as the leaves will have 0 comparisons, and iterates through calling \method{percolate_down()} on every node in reverse level order. The worst case amount of operations done is equivalent to the summation shown below.
+At first glance, it would appear that the algorithm is described by $O(n \log n)$ since there is a single deterministic loop that iterates $\frac{n}{2} - 1$ times containing a $O(\log n)$ method. This is technically correct, but not the most optimal analysis. Upon closer inspection we can tighten the bound to $\Theta(n)$ because \method{percolate_down} is only $\Omega(1)$ for a single run, but, over multiple runs of a heap it is shown to be $\Theta(\log n)$ \cite{aocp}.
+
+In the \method{build_heap} algorithm, an arbitrary heap is created, followed by \method{percolate_down} being called in reverse level order starting on the first parent node. The total number of comparisons in a worst-case \method{build_heap} scenario is shown in Figure \ref{fig:tab}. We observe that nodes of height 0 (there are $\frac{n}{2}$) have 0 comparisons because they have no children, and the total number of comparisons in \method{build_heap} can be represented as the summation shown below.
 \[
 	\sum_{i=1}^{h}\frac{2(n+1)}{2^{i+1}} \in O(n)
 \]
 
 
-The summation, although not done in this analysis, can be shown to be linear. Also, realize that the algorithm must access every element of the array at least once, which gives it $\Omega(n)$ time. Therefore, we conclude that the algorithm is of the form
+This summation can be shown to be linear \cite{beck}, and after observing that the algorithm must access every element of the heap at least once, we can see the \method{build_heap} is $\Omega(n)$ time. Therefore, we conclude that the algorithm is of the form
 \[
 	T(n)\in \Theta(n)
 \]
-The author never explicitly stated what efficiency class the algorithm is in, but it can be assumed that they concluded that it is $O(n)$ \cite[230]{levit}. Our analysis does agree with the author's up to a point, but by observing that the algorithm must be $\Omega(n)$ we can tighten the bound to Big-$\Theta$, instead of just Big-$O$.
+The author never explicitly states what efficiency class the algorithm is in, but it can be assumed that they concluded that it is $O(n)$ \cite[230]{levit}. Our analysis does agree with the author's, up to a point, but by observing that the algorithm must be at least $\Omega(n)$ we can tighten our bound to Big-$\Theta$, instead of just Big-$O$.
 
-\section{Heap Sort}
+\section{Heapsort}
 
-In general, a heap sort algorithm contains two major parts: building a heap from data, and repeatedly removing the root node and inserting it into the to-be-sorted array. As shown above, the first part can be done in linear time.
-
-To analyze the \method{heap_sort()} algorithm, we chose \method{delete_max()} method on line 118 as the basic operation because this occurs most frequently and is the philosophical heart of this algorithm. We also chose this method because it has already been shown in this analysis that the first part of the sort, building the heap, is $\Theta(n)$ time, and only happens once.
-
-An empirical analysis of running \method{heap_sort()} for multiple values of $n$ produces the results shown below. Standard function $f(n) = n \log n$ with constant multipliers, has been added to illustrate the analysis.
+In general, a heapsort algorithm contains two major parts: building the heap from data and repeatedly removing the highest valued node to put into the to-be-sorted array.
+%
+To analyze the \method{heap_sort} algorithm we chose the \method{delete_max()} method  on line 123 as the basic operation because this occurs most frequently and is the philosophical heart of this algorithm. We ruled out building the heap since it only occurs once, and was shown previously to be $\Theta(n)$.
 
 \begin{center}
     \input{sort}
+        \captionof{figure}{Results of implemented heapsort algorithm.}
+        \label{fig:sort}
 \end{center}
 
-An examination of the code itself explains the empirical results when we observe that this algorithm is calls the method \method{delete_max()}, which in turn has constant work, except for the call to \method{percolate_down()}, which has been shown above to be $O(\log n)$ time. If we go back and take a look at \method{heap_sort()}, there is a deterministic for loop that runs approximately $n/2$ times. When we combine these two facts, we get that \method{heap_sort()} is of the form
+An empirical analysis of running \method{heap_sort} for multiple values of $n$ produces the results shown above, in Figure \ref{fig:sort}. The standard function $f(n) = n \log n$ with constant multipliers, has been added to illustrate the analysis.
+
+An examination of the code itself explains the empirical results when we observe that this algorithm uses the method \method{delete_max()}, which deletes the largest valued node and \textit{re-heaps} the heap using \method{percolate_down}. Since this method call is in a deterministic for loop and \method{delete_max}'s basic operation was shown to be $\Theta(\log n)$ time, we can extrapolate that \method{heap_sort} is of the form
+\[
+	T(n)\in \Theta(n\log n)
+\]
+
+However, this analysis is completely dependent upon one thing: the input data. The best case scenario depends wholly upon the whether or not the data has duplicate values in it. If there are duplicate values in the data the best-case runtime turns into $\Omega(n)$, however, if duplicates do not appear in the data then the best-case runtime turns into $\Omega(n\log n)$ \cite[84--86]{anal}.
+
+Shown below are possible conclusions based on input data.
+
+\textbf{Duplicates}
 \[
 	T(n)\in O(n\log n)
+	\]
+	\[
+	T(n)\in \Omega(n)
+	\]
+\textbf{Unique}
+\[
+	T(n)\in \Theta(n\log n)
 \]
-	
-We cannot tighten the bound to Big-$\Theta$ because of the fact that \method{percolate_down()} is not Big-$\Theta$.
+
+Our author states `` [heapsort] falls in the same class as that of mergesort'', which is not an outright conclusion, but points toward the assumption of $\Theta(n \log n)$. Our analysis agrees with our author's conclusion only if the data does not include duplicates. If the data does include duplicates the only thing affected is the algorithm's best-case, and thus changes our Big-$\Theta$ to Big-$O$.
 \nocite{*}
 \clearpage
 \printbibliography
+
 \end{document}

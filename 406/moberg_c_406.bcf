@@ -2138,7 +2138,11 @@
     <bcf:datasource type="file" datatype="bibtex">sample.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">levit</bcf:citekey>
+    <bcf:citekey order="1">anal</bcf:citekey>
+    <bcf:citekey order="2">aocp</bcf:citekey>
+    <bcf:citekey order="3">beck</bcf:citekey>
+    <bcf:citekey order="4">levit</bcf:citekey>
+    <bcf:citekey order="5">anal</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="ynt/global/" type="entry" sortscheme="ynt" sortnamekeyscheme="global" labelprefix="">

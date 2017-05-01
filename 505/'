@@ -1,0 +1,24 @@
+#!/bin/bash
+gen_rand () {
+   echo gen_rands
+   rm input.dat
+   echo 4 >> input.dat
+   printf "\n" >> input.dat
+   for i in `seq 4`
+   do
+      for n in `seq 4`
+      do
+         echo $(( ( RANDOM % 10 )  + 1 )) >> input.dat
+         printf "\n" >> input.dat
+      done
+   done
+}
+gen_rand
+./main < input.dat 1>>/dev/null 2>>data.dat
+
+NBS="$(tail -1 data.dat)"
+if [ $NBS -gt 1 ]
+then
+cat input.dat >> answers.txt
+printf "\n" >> answers.txt 
+fi

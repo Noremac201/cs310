@@ -1,8 +1,7 @@
 #!/bin/bash
-for n in `seq 5000`
+for n in `seq 500`
 do
    rm nums.dat
-
    for j in `seq $n`
    do
       echo $RANDOM >> nums.dat

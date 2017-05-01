@@ -1,0 +1,15 @@
+[0] Config.pm:354> INFO - This is Biber 2.6
+[0] Config.pm:357> INFO - Logfile is 'moberg_c_406.blg'
+[18] biber:302> INFO - === Wed Apr  5, 2017, 22:39:59
+[27] Biber.pm:359> INFO - Reading 'moberg_c_406.bcf'
+[74] Biber.pm:820> INFO - Using all citekeys in bib section 0
+[82] Biber.pm:3658> INFO - Processing section 0
+[89] Biber.pm:3828> INFO - Looking for bibtex format file 'sample.bib' for section 0
+[90] bibtex.pm:1425> INFO - Decoding LaTeX character macros into UTF-8
+[90] bibtex.pm:1282> INFO - Found BibTeX data source 'sample.bib'
+[112] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[112] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[112] Biber.pm:3487> INFO - Sorting list 'ynt/global/' of type 'entry' with scheme 'ynt' and locale 'en-US'
+[112] Biber.pm:3493> INFO - No sort tailoring available for locale 'en-US'
+[115] bbl.pm:597> INFO - Writing 'moberg_c_406.bbl' with encoding 'ascii'
+[116] bbl.pm:701> INFO - Output to moberg_c_406.bbl

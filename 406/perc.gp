@@ -1,4 +1,4 @@
-f(x)=3.1*log(x)
+f(x)=2.25*(log(x)/log(2))
 set key off
 set yrange [0:30]
 set xrange [10:5000]
