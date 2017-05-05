@@ -53,7 +53,7 @@ uint opt( const string & s, uint i, const string & t, uint j,
  * @param answ passed by reference, this is the answer (should be an empty str).
  */
 void find_struct( const string & s, uint i, const string & t, uint j,
-                  Matrix< uint > & memo, string & answ )
+                  const Matrix< uint > & memo, string & answ )
 {
     if ( i != 0 && j != 0 )
     {

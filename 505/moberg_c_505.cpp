@@ -45,7 +45,7 @@ struct Node
         return result;
     }
 
-    void calculate_lower_bound( const Matrix< uint > & cost )
+    void calculate_lower_bound( const Matrix< uint > & cost, uint & op_count )
     {
         lower_bound = 0;
         for ( uint i = 0; i < jobpath.size(); i++ )
@@ -58,6 +58,7 @@ struct Node
             uint smallest = UINT_MAX;
             for ( uint job = 1; job < cost.numrows(); job++ )
             {
+                op_count++;
                 if ( cost.at( row, job ) < smallest )
                     smallest = cost.at( row, job );
             }
@@ -88,6 +89,7 @@ int main()
     // read n on std input
     uint n;
     cin >> n;
+    uint op_count{ 0 };
 
     Matrix< uint > cost( n + 1, n + 1 );
 
@@ -110,35 +112,33 @@ int main()
 
     Node node{ 0 };
     node.jobpath.push_back( 0 );
-    node.calculate_lower_bound( cost );
+    node.calculate_lower_bound( cost, op_count );
     for ( uint i = 0; i <= n; i++ )
         node.jobsused.push_back( false );
     node_pq.push( node );
 
-    uint best_solution = UINT_MAX;
-
+    //set base solution to potentially rule out.
+    uint best_solution;
+    for ( uint i = 1; i <= n; i++ )
+    {
+        best_solution += cost.at( i, i );
+    }
     cout << "starting node: " << node.to_string() << endl;
 
-    uint consid{ 0 };
-    uint discard{ 0 };
-    uint nbs{ 0 };
     while ( !node_pq.empty() )
     {
         Node curnode = node_pq.top();
         node_pq.pop();
         cout << "considering: " << curnode.get_label() << endl;
-        consid++;
         if ( curnode.level == n )
         {
             if ( curnode.lower_bound < best_solution )
             {
                 best_solution = curnode.lower_bound;
-                cout << "new best solution: " << best_solution << endl;
-                nbs++;
+                break;
             }
             else
             {
-                discard++;
                 cout << "discarding" << endl;
             }
         }
@@ -151,7 +151,7 @@ int main()
                     Node newnode{ curnode.level + 1 };
                     newnode.jobpath = curnode.jobpath;
                     newnode.jobpath.push_back( i );
-                    newnode.calculate_lower_bound( cost );
+                    newnode.calculate_lower_bound( cost, op_count );
                     if ( newnode.lower_bound < best_solution )
                     {
                         newnode.jobsused = curnode.jobsused;
@@ -163,8 +163,7 @@ int main()
             }
         }
     }
-    cerr << consid << endl;
-    cerr << discard << endl;
-    cerr << nbs << endl;
+    cout << "Best Solution: " << best_solution << endl;
+    cerr << op_count << endl;
     return 0;
 }

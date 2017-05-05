@@ -5,22 +5,14 @@ gen_rand () {
    echo 4 >> input.dat
       for n in `seq 4`
       do
-         echo $(( ( RANDOM % 4 )  + 1 )) $(( ( RANDOM % 4 )  + 1 )) $(( ( RANDOM % 4 )  + 1 )) $(( ( RANDOM % 4 )  + 1 ))>> input.dat
+         echo $(( ( RANDOM % 4 )  + 1 )) $(( ( RANDOM % 4 )  + 1 )) $(( ( RANDOM % 4) + 1 )) $(( ( RANDOM % 4) + 1)) >> input.dat
    done
 }
-
-gen_rand
-./main < input.dat 1>>/dev/null 2>data.dat
-
-while [ true ]
+rm data.dat
+rm beck.dat
+for i in `seq 5000`
 do
-
-NBS="$(tail -1 data.dat)"
-if [ $NBS -gt 1 ]
-then
-   cat input.dat >> answers.txt
-   printf "\n" >> answers.txt 
-break
-fi
-echo loping
+gen_rand
+./main < input.dat 1>>/dev/null 2>>data.dat
+./beck < input.dat 1>>/dev/null 2>>beck.dat
 done
